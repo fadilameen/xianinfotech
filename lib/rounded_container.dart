@@ -10,9 +10,9 @@ class RoundedContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(
-        left: 8,
-        top: 8,
-        right: 8,
+        left: 3,
+        top: 4,
+        right: 3,
       ),
       child: Container(
         height: height,

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
 class AddItemsToSale extends StatefulWidget {
+  const AddItemsToSale({super.key});
+
   @override
-  _AddItemsToSaleState createState() => _AddItemsToSaleState();
+  AddItemsToSaleState createState() => AddItemsToSaleState();
 }
 
-class _AddItemsToSaleState extends State<AddItemsToSale> {
+class AddItemsToSaleState extends State<AddItemsToSale> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _quantityController = TextEditingController();
   final TextEditingController _priceController = TextEditingController();
@@ -82,9 +84,9 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Items to Sale'),
+        title: const Text('Add Items to Sale'),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -111,7 +113,7 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                     return null;
                   },
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 Row(
                   children: [
                     Expanded(
@@ -134,7 +136,7 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                         },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     Expanded(
                       child: TextFormField(
                         decoration: InputDecoration(
@@ -148,7 +150,7 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                     ),
                   ],
                 ),
-                SizedBox(height: 10),
+                const SizedBox(height: 10),
                 TextFormField(
                   controller: _priceController,
                   decoration: InputDecoration(
@@ -167,7 +169,7 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                     return null;
                   },
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 // Discount Field
                 Row(
@@ -186,17 +188,17 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                         },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     DropdownButton<bool>(
                       value: _isDiscountPercentage,
-                      items: [
+                      items: const [
                         DropdownMenuItem(
-                          child: Text('%'),
                           value: true,
+                          child: Text('%'),
                         ),
                         DropdownMenuItem(
-                          child: Text('₹'),
                           value: false,
+                          child: Text('₹'),
                         ),
                       ],
                       onChanged: (value) {
@@ -208,7 +210,7 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 // Tax Field
                 Row(
@@ -227,17 +229,17 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                         },
                       ),
                     ),
-                    SizedBox(width: 10),
+                    const SizedBox(width: 10),
                     DropdownButton<bool>(
                       value: _isTaxPercentage,
-                      items: [
+                      items: const [
                         DropdownMenuItem(
-                          child: Text('%'),
                           value: true,
+                          child: Text('%'),
                         ),
                         DropdownMenuItem(
-                          child: Text('₹'),
                           value: false,
+                          child: Text('₹'),
                         ),
                       ],
                       onChanged: (value) {
@@ -249,7 +251,7 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
 
                 // Cess Field
                 TextFormField(
@@ -264,24 +266,24 @@ class _AddItemsToSaleState extends State<AddItemsToSale> {
                     _updateTotals();
                   },
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
 
                 // Display Subtotal and Total Amount
                 Text('Subtotal: ₹${subtotal.toStringAsFixed(2)}',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                SizedBox(height: 10),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 10),
                 Text('Total Amount: ₹${totalAmount.toStringAsFixed(2)}',
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                SizedBox(height: 20),
+                    style: const TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 20),
 
                 Row(
                   children: [
                     Expanded(
                       child: ElevatedButton(
                         onPressed: _onSave,
-                        child: Text('Save'),
+                        child: const Text('Save'),
                       ),
                     ),
                   ],

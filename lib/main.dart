@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
+// ignore_for_file: avoid_print
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -45,18 +45,18 @@ class _HomePageState extends State<HomePage> {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text("Add New"),
+          title: const Text("Add New"),
           content: SizedBox(
             height: 150,
             child: Column(
               children: [
                 TextField(
                   controller: namecontroller,
-                  decoration: InputDecoration(hintText: "name"),
+                  decoration: const InputDecoration(hintText: "name"),
                 ),
                 TextField(
                   controller: agecontroller,
-                  decoration: InputDecoration(hintText: "age"),
+                  decoration: const InputDecoration(hintText: "age"),
                 ),
               ],
             ),
@@ -66,7 +66,7 @@ class _HomePageState extends State<HomePage> {
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: Text("cancel"),
+              child: const Text("cancel"),
             ),
             TextButton(
               onPressed: () {
@@ -82,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   print("Name and Age cannot be empty");
                 }
               },
-              child: Text("Submit"),
+              child: const Text("Submit"),
             )
           ],
         );
@@ -104,29 +104,40 @@ class _HomePageState extends State<HomePage> {
   }
 
   //data retrival from firebase
-  Stream<QuerySnapshot> _getDataStream() {
-    return FirebaseFirestore.instance.collection('sales').snapshots();
+  Stream<QuerySnapshot> _getDataStream(String query) {
+    if (query.isEmpty) {
+      return FirebaseFirestore.instance.collection('sales').snapshots();
+    } else {
+      return FirebaseFirestore.instance
+          .collection('sales')
+          .where('customer', isGreaterThanOrEqualTo: query)
+          .where('customer', isLessThan: '${query}z')
+          .snapshots();
+    }
   }
+
+  TextEditingController searchController =
+      TextEditingController(); // Add this line
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        leading: Icon(Icons.storefront_outlined),
-        title: Text("xianinfotech LLP"),
+        leading: const Icon(Icons.storefront_outlined),
+        title: const Text("xianinfotech LLP"),
         actions: [
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.notifications_none_outlined),
+            icon: const Icon(Icons.notifications_none_outlined),
           ),
           IconButton(
             onPressed: () {},
-            icon: Icon(Icons.settings_outlined),
+            icon: const Icon(Icons.settings_outlined),
           ),
         ],
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(50),
+          preferredSize: const Size.fromHeight(50),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
@@ -142,20 +153,21 @@ class _HomePageState extends State<HomePage> {
                           Colors.red), // Text color
                       elevation:
                           WidgetStateProperty.all<double>(0), // Remove shadow
-                      side: WidgetStateProperty.all<BorderSide>(BorderSide(
-                          color: Colors.red,
-                          width: 2)), // Border color and width
+                      side: WidgetStateProperty.all<BorderSide>(
+                          const BorderSide(
+                              color: Colors.red,
+                              width: 2)), // Border color and width
                       overlayColor: WidgetStateProperty.all<Color>(
                           Colors.red.shade900.withOpacity(
                               0.2)), // Transparent light red overlay for selection
                     ),
-                    child: Text(
+                    child: const Text(
                       "Transaction Details",
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 8,
                 ),
                 Expanded(
@@ -175,7 +187,7 @@ class _HomePageState extends State<HomePage> {
                           Colors.red.shade900.withOpacity(
                               0.2)), // Transparent light red overlay for selection
                     ),
-                    child: Text(
+                    child: const Text(
                       "Party Details",
                       style: TextStyle(),
                     ),
@@ -189,7 +201,7 @@ class _HomePageState extends State<HomePage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.blueAccent,
-        items: [
+        items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.home_rounded), label: 'HOME'),
           BottomNavigationBarItem(
@@ -217,19 +229,33 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-
+            RoundedContainer(
+              child: TextField(
+                controller: searchController,
+                decoration: InputDecoration(
+                  hintText: "Search by name",
+                  prefixIcon: const Icon(Icons.search),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                ),
+                onChanged: (value) {
+                  setState(() {});
+                },
+              ),
+            ),
             Expanded(
               child: StreamBuilder<QuerySnapshot>(
-                stream: _getDataStream(),
+                stream: _getDataStream(searchController.text),
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   }
                   if (snapshot.hasError) {
                     return Center(child: Text('Error: ${snapshot.error}'));
                   }
                   if (!snapshot.hasData || snapshot.data!.docs.isEmpty) {
-                    return Center(child: Text('No data available.'));
+                    return const Center(child: Text('No data available.'));
                   }
 
                   // Process the documents and return a ListView
@@ -262,7 +288,7 @@ class _HomePageState extends State<HomePage> {
                             children: [
                               Text(
                                 name,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   color: Colors.black,
                                   fontWeight: FontWeight.bold,
                                   fontSize: 16,
@@ -271,7 +297,7 @@ class _HomePageState extends State<HomePage> {
                               Row(
                                 children: [
                                   Container(
-                                    padding: EdgeInsets.all(3),
+                                    padding: const EdgeInsets.all(3),
                                     decoration: BoxDecoration(
                                       color: Colors.green.shade200,
                                       borderRadius: BorderRadius.circular(30),
@@ -285,17 +311,19 @@ class _HomePageState extends State<HomePage> {
                                       ),
                                     ),
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   Column(
                                     crossAxisAlignment: CrossAxisAlignment.end,
                                     children: [
                                       Text(
                                         formattedDate,
-                                        style: TextStyle(color: Colors.grey),
+                                        style:
+                                            const TextStyle(color: Colors.grey),
                                       ),
                                       Text(
                                         formattedTime,
-                                        style: TextStyle(color: Colors.grey),
+                                        style:
+                                            const TextStyle(color: Colors.grey),
                                       ),
                                     ],
                                   ),
@@ -307,50 +335,50 @@ class _HomePageState extends State<HomePage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Total",
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                       Text(
                                         totalAmount,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       )
                                     ],
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 18,
                                   ),
                                   Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
+                                      const Text(
                                         "Balance",
                                         style: TextStyle(color: Colors.grey),
                                       ),
                                       Text(
                                         balance,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                           color: Colors.black,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       )
                                     ],
                                   ),
-                                  Spacer(),
+                                  const Spacer(),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.print_outlined,
                                       color: Colors.grey,
                                     ),
                                   ),
                                   IconButton(
                                     onPressed: () {},
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.share,
                                       color: Colors.grey,
                                     ),
@@ -385,14 +413,14 @@ class _HomePageState extends State<HomePage> {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => AddNewSales(),
+                      builder: (context) => const AddNewSales(),
                     ));
               },
               style: ElevatedButton.styleFrom(
                 foregroundColor: Colors.white,
                 backgroundColor: Colors.red, // Text color
               ),
-              child: Row(
+              child: const Row(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Icon(Icons.currency_rupee_rounded,

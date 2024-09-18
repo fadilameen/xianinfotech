@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_types_as_parameter_names, avoid_print
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -9,10 +11,10 @@ class AddNewSales extends StatefulWidget {
   const AddNewSales({super.key});
 
   @override
-  _AddNewSalesState createState() => _AddNewSalesState();
+  AddNewSalesState createState() => AddNewSalesState();
 }
 
-class _AddNewSalesState extends State<AddNewSales> {
+class AddNewSalesState extends State<AddNewSales> {
   List<Map<String, dynamic>> addedItems = [];
   bool isPaymentReceived = false;
   final TextEditingController notesController = TextEditingController();
@@ -89,15 +91,15 @@ class _AddNewSalesState extends State<AddNewSales> {
       appBar: AppBar(
         title: const Text('Sale'),
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(80),
+          preferredSize: const Size.fromHeight(80),
           child: Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Column(
               children: [
-                Divider(),
+                const Divider(),
                 Row(
                   children: [
-                    Column(
+                    const Column(
                       children: [
                         Text(
                           "Invoice No.: ",
@@ -106,10 +108,10 @@ class _AddNewSalesState extends State<AddNewSales> {
                         Text("23-24-01 16"),
                       ],
                     ),
-                    Spacer(),
+                    const Spacer(),
                     Column(
                       children: [
-                        Text(
+                        const Text(
                           "Date: ",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
@@ -118,8 +120,8 @@ class _AddNewSalesState extends State<AddNewSales> {
                     )
                   ],
                 ),
-                SizedBox(height: 3),
-                Row(
+                const SizedBox(height: 3),
+                const Row(
                   children: [
                     Text(
                       "Firm Name: ",
@@ -128,7 +130,7 @@ class _AddNewSalesState extends State<AddNewSales> {
                     Text("xianinfotech LLP"),
                   ],
                 ),
-                Divider(),
+                const Divider(),
               ],
             ),
           ),
@@ -279,7 +281,7 @@ class _AddNewSalesState extends State<AddNewSales> {
                   final billingName = billingNameController.text;
                   final phone = phoneController.text;
                   final totalAmount = getTotalAmount().toStringAsFixed(2);
-                  final discount =
+                  const discount =
                       "0.00"; // Replace with actual discount if applicable
                   final notes = notesController.text;
 
@@ -307,8 +309,8 @@ class _AddNewSalesState extends State<AddNewSales> {
               child: Container(
                 color: Colors.blue,
                 height: 50,
-                child: Center(
-                  child: const Text(
+                child: const Center(
+                  child: Text(
                     'Save & New',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
@@ -325,7 +327,7 @@ class _AddNewSalesState extends State<AddNewSales> {
                   final billingName = billingNameController.text;
                   final phone = phoneController.text;
                   final totalAmount = getTotalAmount().toStringAsFixed(2);
-                  final discount =
+                  const discount =
                       "0.00"; // Replace with actual discount if applicable
                   final notes = notesController.text;
 
@@ -341,15 +343,15 @@ class _AddNewSalesState extends State<AddNewSales> {
                   Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => MyApp(),
+                        builder: (context) => const MyApp(),
                       ));
                 }
               },
               child: Container(
                 color: Colors.green,
                 height: 50,
-                child: Center(
-                  child: const Text(
+                child: const Center(
+                  child: Text(
                     'Save',
                     style: TextStyle(color: Colors.white, fontSize: 16),
                   ),
