@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "86184796911",
+    "project_id": "xian-8c58c",
+    "storage_bucket": "xian-8c58c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86184796911:android:c679f10571050fdf33711a",
+        "android_client_info": {
+          "package_name": "com.example.xianinfotech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC7vQFWnED0wI5H5cxyKjOSRq1sAXaJBQI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
